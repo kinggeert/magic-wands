@@ -1,8 +1,11 @@
 package me.kinggeert.magicwands.magic_wands;
 
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.Bukkit;
 
 
 public final class Magic_wands extends JavaPlugin {
@@ -13,7 +16,6 @@ public final class Magic_wands extends JavaPlugin {
     public void onEnable() {
         runnable();
 
-
     }
 
     @Override
@@ -21,14 +23,14 @@ public final class Magic_wands extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public void runnable() {
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                Bukkit.broadcastMessage("test");
-
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (label.equalsIgnoreCase("getwand")) {
+            if (sender instanceof Player) {
+                ItemStack item = new ItemStack(Material.BLAZE_ROD);
+                ((Player) sender).getInventory().addItem(item);
             }
-        }.runTaskTimerAsynchronously(this, 0, 20);
+        }
+        return super.onCommand(sender, command, label, args);
     }
 }
