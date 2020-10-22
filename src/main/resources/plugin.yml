@@ -4,3 +4,6 @@ main: me.kinggeert.magicwands.magic_wands.Magic_wands
 api-version: 1.16
 authors: [ kinggeert ]
 description: A simple magic wand plugin
+
+commands:
+  getwand:

@@ -1,21 +1,22 @@
 package me.kinggeert.magicwands.magic_wands;
 
-import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.Plugin;
 
+import java.lang.reflect.Field;
 
 public final class Magic_wands extends JavaPlugin {
 
-
+    private static Plugin plugin;
 
     @Override
     public void onEnable() {
-        runnable();
-
+        plugin = this;
+        registerGlow();
+        this.getCommand("getwand").setExecutor(new Commands());
     }
 
     @Override
@@ -23,14 +24,29 @@ public final class Magic_wands extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (label.equalsIgnoreCase("getwand")) {
-            if (sender instanceof Player) {
-                ItemStack item = new ItemStack(Material.BLAZE_ROD);
-                ((Player) sender).getInventory().addItem(item);
-            }
-        }
-        return super.onCommand(sender, command, label, args);
+    public static Plugin getPlugin() {
+        return plugin;
     }
+
+    public void registerGlow() {
+        NamespacedKey key = new NamespacedKey(this, "70");
+        try {
+            Field f = Enchantment.class.getDeclaredField("acceptingNew");
+            f.setAccessible(true);
+            f.set(null, true);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Glow glow = new Glow(key);
+            Enchantment.registerEnchantment(glow);
+        }
+        catch (IllegalArgumentException e){
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
