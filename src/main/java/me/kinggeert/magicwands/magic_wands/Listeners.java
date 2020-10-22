@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 public class Listeners implements Listener {
 
     Plugin plugin = Magic_wands.getPlugin();
-    Integer timer = null;
+    Long timer = 1L;
 
     @EventHandler()
     public void onClick(PlayerInteractEvent event) {
@@ -21,12 +21,18 @@ public class Listeners implements Listener {
         Glow glow = new Glow(key);
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
             if (player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(glow)) {
-                player.sendMessage("right click");
+                if (timer < System.currentTimeMillis()) {
+                    timer = System.currentTimeMillis() + 10;
+                    player.sendMessage("right click");
+                }
             }
         }
         if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
             if (player.getInventory().getItemInMainHand().getItemMeta().hasEnchant(glow)) {
-                player.sendMessage("left click");
+                if (timer < System.currentTimeMillis()) {
+                    timer = System.currentTimeMillis() + 10;
+                    player.sendMessage("left click");
+                }
             }
         }
     }
