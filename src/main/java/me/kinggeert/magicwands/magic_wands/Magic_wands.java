@@ -17,6 +17,7 @@ public final class Magic_wands extends JavaPlugin {
         plugin = this;
         registerGlow();
         this.getCommand("getwand").setExecutor(new Commands());
+        this.getServer().getPluginManager().registerEvents(new Listeners(), this);
     }
 
     @Override
