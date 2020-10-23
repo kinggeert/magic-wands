@@ -6,10 +6,10 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
@@ -28,6 +28,8 @@ public class Commands implements CommandExecutor {
                 meta.addEnchant(glow, 0, true);
                 meta.setDisplayName(ChatColor.DARK_PURPLE + "Magic Wand");
                 meta.setLore(Collections.singletonList(ChatColor.DARK_PURPLE + "No spell selected"));
+                meta.addItemFlags();
+                meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 0);
                 item.setItemMeta(meta);
                 ((Player) sender).getInventory().addItem(item);
                 sender.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "'oops' said a god 'I droppen my wand'");
