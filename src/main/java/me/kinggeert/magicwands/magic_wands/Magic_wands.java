@@ -2,6 +2,8 @@ package me.kinggeert.magicwands.magic_wands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
@@ -18,6 +20,7 @@ public final class Magic_wands extends JavaPlugin {
         registerGlow();
         this.getCommand("getwand").setExecutor(new Commands());
         this.getServer().getPluginManager().registerEvents(new Listeners(), this);
+        new GameTick().runTaskTimerAsynchronously(this, 0, 1);
     }
 
     @Override
@@ -49,5 +52,4 @@ public final class Magic_wands extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
 }

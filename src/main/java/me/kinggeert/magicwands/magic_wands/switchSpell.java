@@ -30,7 +30,7 @@ public class switchSpell {
             player.sendMessage("Selected spell: " + name);
             wand.setItemMeta(meta);
         }
-        if (spell == 1) {
+        else if (spell == 1) {
             String name = "explosion wave";
             ItemMeta meta = wand.getItemMeta();
             setSpell(meta, 2);
@@ -38,7 +38,7 @@ public class switchSpell {
             player.sendMessage("Selected spell: " + name);
             wand.setItemMeta(meta);
         }
-        if (spell == 2) {
+        else if (spell == 2) {
             String name = "fireball";
             ItemMeta meta = wand.getItemMeta();
             setSpell(meta, 1);
