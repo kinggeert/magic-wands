@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.entity.*;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.persistence.PersistentDataType;
@@ -47,6 +49,7 @@ public class Listeners implements Listener {
             NamespacedKey key = new NamespacedKey(plugin, "fireball");
             if (arrow.getPersistentDataContainer().has(key, PersistentDataType.INTEGER)) {
                 arrow.getWorld().createExplosion(arrow.getLocation(), 5);
+//                Bukkit.getServer().getPluginManager().callEvent(EntityExplodeEvent, );
                 arrow.getWorld().spawnParticle(Particle.FLAME, arrow.getLocation(), 200);
                 arrow.getWorld().spawnParticle(Particle.LAVA, arrow.getLocation(), 20);
                 arrow.remove();
